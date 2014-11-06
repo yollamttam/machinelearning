@@ -24,7 +24,7 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 % Setup some useful variables
 m = size(X, 1);
-         
+%this is a wasted line         
 % You need to return the following variables correctly 
 J = 0;
 Theta1_grad = zeros(size(Theta1));
