@@ -26,8 +26,9 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 m = size(X, 1);
          
 %add a column of ones
-X = [ones(m,1) x];
-
+X = [ones(m,1) X];
+%counting the number of labels?
+K = length(unique(y));
 % You need to return the following variables correctly 
 J = 0;
 Theta1_grad = zeros(size(Theta1));
@@ -65,14 +66,36 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+
+%y is a 5000x1 array with values ranging from 1:10. 
+%we need to convert this to a 10x5000 array
+yy = zeros(size(a3,1),m);
+for i = 1:K
+  for j = 1:m
+    yy(i,j) = (y(j)==i);
+  end
+end
+
 a2 = sigmoid(Theta1*X');
-am = size(a2,1)
+am = size(a2,2);
 
-a2 = [ones(am,1) am];
-a3 = sigmoid(Theta2*a2');
+a2 = [ones(1,am); a2];
+a3 = sigmoid(Theta2*a2);
+
+delta3 = a3 - yy;
 
 
+    
+Jmatrix = -1*(yy.*log(a3)+(1-yy).*log(1-a3))/m;
 
+Theta1_copy = Theta1;
+Theta2_copy = Theta2;
+
+Theta1_copy(:,1) = 0;
+Theta2_copy(:,1) = 0;
+regularizationCost = lambda*(sum(sum(Theta1_copy.^2))+sum(sum(Theta2_copy.^2)))/(2*m);
+
+J = sum(sum(Jmatrix)) + regularizationCost;
 
 
 
