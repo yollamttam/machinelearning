@@ -1,0 +1,4 @@
+Step = .0000000000001;
+Theta found by gradient descent: -3.630624 1.166247 
+Step = .00001;
+Theta found by gradient descent: -3.630082 1.166336 
