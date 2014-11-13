@@ -39,7 +39,7 @@ m = size(X, 1);
 sel = randperm(size(X, 1));
 sel = sel(1:100);
 
-displayData(X(sel, :));
+%displayData(X(sel, :));
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
@@ -72,7 +72,7 @@ nn_params = [Theta1(:) ; Theta2(:)];
 fprintf('\nFeedforward Using Neural Network ...\n')
 
 % Weight regularization parameter (we set this to 0 here).
-lambda = 1;
+lambda = 0;
 
 J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, ...
                    num_labels, X, y, lambda);
@@ -216,7 +216,7 @@ pause;
 
 fprintf('\nVisualizing Neural Network... \n')
 
-displayData(Theta1(:, 2:end));
+%displayData(Theta1(:, 2:end));
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;

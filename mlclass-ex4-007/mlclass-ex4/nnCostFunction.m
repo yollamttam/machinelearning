@@ -92,12 +92,29 @@ regularizationCost = lambda*(sum(sum(Theta1_copy.^2))+sum(sum(Theta2_copy.^2)))/
 
 J = sum(sum(Jmatrix)) + regularizationCost;
 
+%first step of back propagation
+delta3 = a3 - yy;
 
+%dimension of this should be 10x5000
+delta2_firstTerm = Theta2'*delta3;
+%drop first row
+delta2_firstTerm = delta2_firstTerm(2:end,:);
+g2prime = sigmoidGradient(Theta1*X');
+delta2 = delta2_firstTerm.*g2prime;
 
+Delta1 = delta2*X/m;
+Delta2 = delta3*a2'/m;
 
+%set first column to zero for regularization
+%first make a copy
+Theta1_copy = Theta1;
+Theta2_copy = Theta2;
+%then set first column to zero
+Theta1_copy(:,1) = 0;
+Theta2_copy(:,1) = 0;
 
-
-
+Theta1_grad = Delta1 + lambda*Theta1_copy/m;
+Theta2_grad = Delta2 + lambda*Theta2_copy/m;
 
 
 
